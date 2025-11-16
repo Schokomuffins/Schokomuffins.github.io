@@ -1,0 +1,659 @@
+<!DOCTYPE html>
+<html lang="ko" id="htmlLang">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>나의 홈페이지</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            line-height: 1.6;
+            color: #1a1a1a;
+            background: #ffffff;
+            font-size: 14px;
+        }
+
+        /* Header Navigation */
+        header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            background: rgba(255, 255, 255, 0.98);
+            border-bottom: 1px solid #e0e0e0;
+            z-index: 1000;
+            padding: 1rem 2rem;
+        }
+
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .nav-left {
+            display: flex;
+            gap: 2rem;
+            align-items: center;
+        }
+
+        .nav-item {
+            text-decoration: none;
+            color: #1a1a1a;
+            font-size: 14px;
+            font-weight: 400;
+            cursor: pointer;
+            transition: color 0.2s;
+        }
+
+        .nav-item:hover {
+            color: #666;
+        }
+
+        .nav-item.active {
+            color: #1a1a1a;
+            font-weight: 500;
+        }
+
+        .nav-right {
+            display: flex;
+            align-items: center;
+            gap: 1.5rem;
+        }
+
+        .nav-right-text {
+            font-size: 12px;
+            color: #666;
+        }
+
+        .language-selector {
+            display: flex;
+            gap: 0.5rem;
+            align-items: center;
+        }
+
+        .lang-btn {
+            background: none;
+            border: none;
+            color: #666;
+            font-size: 12px;
+            cursor: pointer;
+            padding: 0.25rem 0.5rem;
+            transition: color 0.2s;
+        }
+
+        .lang-btn:hover {
+            color: #1a1a1a;
+        }
+
+        .lang-btn.active {
+            color: #1a1a1a;
+            font-weight: 500;
+        }
+
+        /* Main Container */
+        .container {
+            max-width: 1600px;
+            margin: 0 auto;
+            padding: 80px 2rem 2rem;
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            gap: 3rem;
+        }
+
+        /* Column Styles */
+        .column {
+            min-width: 0;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .column-image {
+            width: 100%;
+            margin-bottom: 2rem;
+        }
+
+        .column-image img {
+            width: 100%;
+            height: auto;
+            display: block;
+            object-fit: cover;
+        }
+
+        /* Left Column - Projects */
+        .left-column {
+            min-width: 0;
+        }
+
+        .section-title {
+            font-size: 14px;
+            font-weight: 500;
+            margin-bottom: 2rem;
+            color: #1a1a1a;
+        }
+
+        .project-item {
+            margin-bottom: 4rem;
+        }
+
+        .project-image {
+            width: 100%;
+            margin-bottom: 1.5rem;
+            display: block;
+        }
+
+        .project-image img {
+            width: 100%;
+            height: auto;
+            display: block;
+        }
+
+        .project-header {
+            margin-bottom: 1rem;
+        }
+
+        .project-number {
+            font-size: 14px;
+            font-weight: 500;
+            margin-bottom: 0.5rem;
+            color: #1a1a1a;
+        }
+
+        .project-title {
+            font-size: 18px;
+            font-weight: 500;
+            margin-bottom: 0.5rem;
+            color: #1a1a1a;
+        }
+
+        .project-meta {
+            font-size: 13px;
+            color: #666;
+            line-height: 1.8;
+            margin-bottom: 0.5rem;
+        }
+
+        .project-description {
+            font-size: 14px;
+            color: #444;
+            line-height: 1.8;
+            margin-top: 1rem;
+        }
+
+        .project-link {
+            display: inline-block;
+            margin-top: 1rem;
+            font-size: 13px;
+            color: #1a1a1a;
+            text-decoration: none;
+            border-bottom: 1px solid #1a1a1a;
+        }
+
+        .project-link:hover {
+            color: #666;
+            border-bottom-color: #666;
+        }
+
+        /* Middle Column */
+        .middle-column {
+            min-width: 0;
+        }
+
+        /* Right Column */
+        .right-column {
+            min-width: 0;
+        }
+
+        .profile-section {
+            margin-bottom: 4rem;
+        }
+
+        .profile-contact {
+            font-size: 13px;
+            margin-bottom: 1.5rem;
+            line-height: 1.8;
+        }
+
+        .profile-contact a {
+            color: #1a1a1a;
+            text-decoration: none;
+            display: block;
+            margin-bottom: 0.5rem;
+        }
+
+        .profile-contact a:hover {
+            color: #666;
+        }
+
+        .profile-bio {
+            font-size: 14px;
+            color: #444;
+            line-height: 1.8;
+            margin-bottom: 1.5rem;
+        }
+
+        .info-section {
+            margin-bottom: 4rem;
+        }
+
+        .info-section-title {
+            font-size: 14px;
+            font-weight: 500;
+            margin-bottom: 1.5rem;
+            color: #1a1a1a;
+        }
+
+        .info-item {
+            margin-bottom: 1.5rem;
+        }
+
+        .info-item-title {
+            font-size: 14px;
+            font-weight: 500;
+            margin-bottom: 0.25rem;
+            color: #1a1a1a;
+        }
+
+        .info-item-meta {
+            font-size: 12px;
+            color: #666;
+            margin-bottom: 0.25rem;
+        }
+
+        /* Footer */
+        footer {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: rgba(255, 255, 255, 0.98);
+            border-top: 1px solid #e0e0e0;
+            padding: 1rem 2rem;
+            z-index: 1000;
+        }
+
+        .footer-content {
+            max-width: 1400px;
+            margin: 0 auto;
+            font-size: 12px;
+            color: #666;
+        }
+
+        /* Responsive */
+        @media (max-width: 1200px) {
+            .container {
+                grid-template-columns: 1fr 1fr;
+                gap: 2rem;
+            }
+
+            .right-column {
+                grid-column: 1 / -1;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+                padding: 80px 1rem 2rem;
+            }
+
+            nav {
+                padding: 0;
+            }
+
+            .nav-left {
+                gap: 1rem;
+            }
+
+            .nav-item {
+                font-size: 13px;
+            }
+
+            .nav-right-text {
+                display: none;
+            }
+        }
+
+        /* Hidden sections */
+        .section {
+            display: none;
+        }
+
+        .section.active {
+            display: block;
+        }
+    </style>
+</head>
+<body>
+    <header>
+    <nav>
+            <div class="nav-left">
+                <a href="#" class="nav-item active" data-section="graphic" data-i18n="nav.graphic">Graphic</a>
+                <a href="#" class="nav-item" data-section="sculpture" data-i18n="nav.sculpture">Sculpture</a>
+            </div>
+            <div class="nav-right">
+                <div class="nav-right-text" data-i18n="template">Cargo Demo Template</div>
+                <div class="language-selector">
+                    <button class="lang-btn active" data-lang="ko">한</button>
+                    <button class="lang-btn" data-lang="de">DE</button>
+                    <button class="lang-btn" data-lang="en">EN</button>
+                </div>
+            </div>
+    </nav>
+    </header>
+
+    <div class="container">
+        <!-- Left Column -->
+        <div class="column left-column">
+            <div class="column-image">
+                <img src="https://images.unsplash.com/photo-1541961017774-22349e4a1262?w=500&h=700&fit=crop&q=80" alt="Abstract Mural - Graphic Work" onerror="this.src='https://via.placeholder.com/500x700/d4a574/ffffff?text=Abstract+Mural'">
+            </div>
+            
+            <!-- Graphic Section -->
+            <section id="graphic" class="section active">
+                <div class="section-title" data-i18n="nav.graphic">Graphic</div>
+                
+                <div class="project-item">
+                    <div class="project-header">
+                        <div class="project-number" data-i18n="project1.number">1. Test Project</div>
+                        <div class="project-title">PHANTOMAS</div>
+                        <div class="project-meta" data-i18n="project1.meta">
+                            PHANTOMAS — N° 35-36<br>
+                            Editions de la revue Phantomas<br>
+                            Bruxelles, 1962<br>
+                            Belgian literary magazine 1953-1980
+                        </div>
+                    </div>
+                    <div class="project-description" data-i18n="project1.description">
+                        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+                    </div>
+                </div>
+
+                <div class="project-item">
+                    <div class="project-header">
+                        <div class="project-number" data-i18n="project2.number">2. Test Project</div>
+                        <div class="project-title" data-i18n="project2.title">Project Title</div>
+                        <div class="project-meta" data-i18n="project2.meta">
+                            Project Details<br>
+                            Year, Location<br>
+                            Additional Information
+                        </div>
+                    </div>
+                    <div class="project-description" data-i18n="project2.description">
+                        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+                    </div>
+                    <a href="#" class="project-link" data-i18n="more">More..</a>
+                </div>
+            </section>
+
+            <!-- Sculpture Section -->
+            <section id="sculpture" class="section">
+                <div class="section-title" data-i18n="nav.sculpture">Sculpture</div>
+                
+                <div class="project-item">
+                    <div class="project-header">
+                        <div class="project-number" data-i18n="sculpture1.number">1. Test Project</div>
+                        <div class="project-title">Alex Frost</div>
+                        <div class="project-meta" data-i18n="sculpture1.meta">
+                            From Alex Frost 1976<br>
+                            2004
+                        </div>
+                    </div>
+                    <div class="project-description" data-i18n="sculpture1.description">
+                        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+                    </div>
+                    <a href="#" class="project-link" data-i18n="more">More..</a>
+                </div>
+            </section>
+        </div>
+
+        <!-- Middle Column -->
+        <div class="column middle-column">
+            <div class="column-image">
+                <img src="https://images.unsplash.com/photo-1513475382585-d06e58bcb0e0?w=500&h=700&fit=crop&q=80" alt="Gallery Space" onerror="this.src='https://via.placeholder.com/500x700/f5f5f0/8b6f47?text=Gallery+Space'">
+            </div>
+            
+            <!-- Profile Section -->
+            <div class="profile-section">
+                <div class="profile-contact">
+                    <a href="mailto:hello@example.com">hello@example.com</a>
+                    <a href="https://instagram.com" target="_blank">Instagram</a>
+                </div>
+                <div class="profile-bio">
+                    <p data-i18n="bio.paragraph1">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris.</p>
+                    <p style="margin-top: 1rem;" data-i18n="bio.paragraph2">Nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.</p>
+                </div>
+            </div>
+
+            <!-- Education Section -->
+            <div class="info-section">
+                <div class="info-section-title" data-i18n="education.title">Education</div>
+                <div class="info-item">
+                    <div class="info-item-title" data-i18n="education.item1.title">Vestibulum Euismod Ultrices (Congue)</div>
+                    <div class="info-item-meta">2015 - 2019</div>
+                </div>
+                <div class="info-item">
+                    <div class="info-item-title" data-i18n="education.item2.title">Vestibulum Euismod Ultrices (Tincidunt)</div>
+                    <div class="info-item-meta">2012 - 2015</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Right Column -->
+        <div class="column right-column">
+            <div class="column-image">
+                <img src="https://images.unsplash.com/photo-1578662996442-48f60103fc96?w=500&h=700&fit=crop&q=80" alt="Sculptural Installation" onerror="this.src='https://via.placeholder.com/500x700/c9a961/ffffff?text=Sculpture'">
+            </div>
+            
+            <!-- Art Installation Image (for Sculpture section) -->
+            <div class="project-item" style="display: none;" id="sculpture-image">
+                <div class="project-image">
+                    <img src="https://via.placeholder.com/400x500/f5f5f5/1a1a1a?text=Installation" alt="Installation">
+                </div>
+            </div>
+
+            <!-- Employment Section -->
+            <div class="info-section">
+                <div class="info-section-title" data-i18n="employment.title">Employment</div>
+                <div class="info-item">
+                    <div class="info-item-title" data-i18n="employment.item1.title">Vestibulum Ultricies</div>
+                    <div class="info-item-meta" data-i18n="employment.item1.meta">since 2022</div>
+                </div>
+                <div class="info-item">
+                    <div class="info-item-title" data-i18n="employment.item2.title">Pellentesque Habitant 'Morbi Tristique Senectus'</div>
+                    <div class="info-item-meta">2020 - 2022</div>
+                </div>
+                <div class="info-item">
+                    <div class="info-item-title" data-i18n="employment.item3.title">Vestibulum Ultricies</div>
+                    <div class="info-item-meta">2019 - 2020</div>
+                </div>
+                <div class="info-item">
+                    <div class="info-item-title" data-i18n="employment.item4.title">Pellentesque Habitant</div>
+                    <div class="info-item-meta">2018 - 2019</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        <div class="footer-content" data-i18n="footer">
+            © Cargo Test Site 2027
+        </div>
+    </footer>
+
+    <script>
+        // Translation data
+        const translations = {
+            ko: {
+                'template': 'Cargo Demo Template',
+                'nav.graphic': 'Graphic',
+                'nav.sculpture': 'Sculpture',
+                'project1.number': '1. 테스트 프로젝트',
+                'project1.meta': 'PHANTOMAS — N° 35-36<br>Editions de la revue Phantomas<br>Bruxelles, 1962<br>벨기에 문학 잡지 1953-1980',
+                'project1.description': '이 프로젝트는 벨기에 문학 잡지 PHANTOMAS의 디자인 작업입니다. 1953년부터 1980년까지 발행된 이 잡지는 당시 아방가르드 문학과 예술을 소개하는 중요한 매체였습니다.',
+                'project2.number': '2. 테스트 프로젝트',
+                'project2.title': '프로젝트 제목',
+                'project2.meta': '프로젝트 상세<br>연도, 위치<br>추가 정보',
+                'project2.description': '이것은 두 번째 프로젝트에 대한 설명입니다. 다양한 디자인 요소와 창의적인 접근 방식을 보여줍니다.',
+                'sculpture1.number': '1. 테스트 프로젝트',
+                'sculpture1.meta': 'Alex Frost 1976에서<br>2004',
+                'sculpture1.description': '이 설치 작품은 Alex Frost의 작품에서 영감을 받았습니다. 공간과 형태의 관계를 탐구하는 작품입니다.',
+                'more': '더보기..',
+                'bio.paragraph1': '안녕하세요. 저는 그래픽 디자이너이자 조각가입니다. 시각적 커뮤니케이션과 공간 예술에 관심이 많습니다.',
+                'bio.paragraph2': '다양한 매체를 통해 창의적인 표현을 탐구하며, 전통적인 기법과 현대적인 기술을 결합한 작업을 하고 있습니다.',
+                'education.title': '학력',
+                'education.item1.title': '대학교 (학사)',
+                'education.item2.title': '고등학교',
+                'employment.title': '경력',
+                'employment.item1.title': '프리랜서 디자이너',
+                'employment.item1.meta': '2022년부터',
+                'employment.item2.title': '디자인 스튜디오',
+                'employment.item3.title': '예술 기관',
+                'employment.item4.title': '인턴십',
+                'footer': '© Cargo Test Site 2027'
+            },
+            de: {
+                'template': 'Cargo Demo Template',
+                'nav.graphic': 'Grafik',
+                'nav.sculpture': 'Skulptur',
+                'project1.number': '1. Testprojekt',
+                'project1.meta': 'PHANTOMAS — N° 35-36<br>Editions de la revue Phantomas<br>Bruxelles, 1962<br>Belgische Literaturzeitschrift 1953-1980',
+                'project1.description': 'Dieses Projekt ist eine Designarbeit für die belgische Literaturzeitschrift PHANTOMAS. Die von 1953 bis 1980 veröffentlichte Zeitschrift war ein wichtiges Medium für avantgardistische Literatur und Kunst.',
+                'project2.number': '2. Testprojekt',
+                'project2.title': 'Projekttitel',
+                'project2.meta': 'Projektdetails<br>Jahr, Ort<br>Zusätzliche Informationen',
+                'project2.description': 'Dies ist eine Beschreibung des zweiten Projekts. Es zeigt verschiedene Designelemente und kreative Ansätze.',
+                'sculpture1.number': '1. Testprojekt',
+                'sculpture1.meta': 'Von Alex Frost 1976<br>2004',
+                'sculpture1.description': 'Diese Installation wurde von Alex Frosts Werk inspiriert. Es ist ein Werk, das die Beziehung zwischen Raum und Form erforscht.',
+                'more': 'Mehr..',
+                'bio.paragraph1': 'Hallo, ich bin Grafikdesigner und Bildhauer. Ich interessiere mich für visuelle Kommunikation und Raumkunst.',
+                'bio.paragraph2': 'Ich erforsche kreative Ausdrucksformen durch verschiedene Medien und kombiniere traditionelle Techniken mit modernen Technologien.',
+                'education.title': 'Bildung',
+                'education.item1.title': 'Universität (Bachelor)',
+                'education.item2.title': 'Gymnasium',
+                'employment.title': 'Beschäftigung',
+                'employment.item1.title': 'Freiberuflicher Designer',
+                'employment.item1.meta': 'seit 2022',
+                'employment.item2.title': 'Designstudio',
+                'employment.item3.title': 'Kunstinstitution',
+                'employment.item4.title': 'Praktikum',
+                'footer': '© Cargo Test Site 2027'
+            },
+            en: {
+                'template': 'Cargo Demo Template',
+                'nav.graphic': 'Graphic',
+                'nav.sculpture': 'Sculpture',
+                'project1.number': '1. Test Project',
+                'project1.meta': 'PHANTOMAS — N° 35-36<br>Editions de la revue Phantomas<br>Bruxelles, 1962<br>Belgian literary magazine 1953-1980',
+                'project1.description': 'This project is a design work for the Belgian literary magazine PHANTOMAS. Published from 1953 to 1980, the magazine was an important medium for avant-garde literature and art.',
+                'project2.number': '2. Test Project',
+                'project2.title': 'Project Title',
+                'project2.meta': 'Project Details<br>Year, Location<br>Additional Information',
+                'project2.description': 'This is a description of the second project. It showcases various design elements and creative approaches.',
+                'sculpture1.number': '1. Test Project',
+                'sculpture1.meta': 'From Alex Frost 1976<br>2004',
+                'sculpture1.description': 'This installation was inspired by Alex Frost\'s work. It is a piece that explores the relationship between space and form.',
+                'more': 'More..',
+                'bio.paragraph1': 'Hello, I am a graphic designer and sculptor. I am interested in visual communication and spatial art.',
+                'bio.paragraph2': 'I explore creative expressions through various media and combine traditional techniques with modern technologies.',
+                'education.title': 'Education',
+                'education.item1.title': 'University (Bachelor)',
+                'education.item2.title': 'High School',
+                'employment.title': 'Employment',
+                'employment.item1.title': 'Freelance Designer',
+                'employment.item1.meta': 'since 2022',
+                'employment.item2.title': 'Design Studio',
+                'employment.item3.title': 'Art Institution',
+                'employment.item4.title': 'Internship',
+                'footer': '© Cargo Test Site 2027'
+            }
+        };
+
+        // Language management
+        let currentLang = localStorage.getItem('language') || 'ko';
+
+        function updateLanguage(lang) {
+            currentLang = lang;
+            localStorage.setItem('language', lang);
+            
+            // Update HTML lang attribute
+            document.documentElement.lang = lang;
+            
+            // Update all elements with data-i18n attribute
+            document.querySelectorAll('[data-i18n]').forEach(element => {
+                const key = element.getAttribute('data-i18n');
+                if (translations[lang] && translations[lang][key]) {
+                    element.innerHTML = translations[lang][key];
+                }
+            });
+            
+            // Update active language button
+            document.querySelectorAll('.lang-btn').forEach(btn => {
+                btn.classList.remove('active');
+                if (btn.dataset.lang === lang) {
+                    btn.classList.add('active');
+                }
+            });
+        }
+
+        // Language button event listeners
+        document.querySelectorAll('.lang-btn').forEach(btn => {
+            btn.addEventListener('click', () => {
+                updateLanguage(btn.dataset.lang);
+            });
+        });
+
+        // Initialize language on page load
+        updateLanguage(currentLang);
+
+        // Navigation functionality
+        document.querySelectorAll('.nav-item').forEach(item => {
+            item.addEventListener('click', (e) => {
+                e.preventDefault();
+                
+                // Remove active class from all nav items
+                document.querySelectorAll('.nav-item').forEach(nav => {
+                    nav.classList.remove('active');
+                });
+                
+                // Add active class to clicked item
+                item.classList.add('active');
+                
+                // Hide all sections
+                document.querySelectorAll('.section').forEach(section => {
+                    section.classList.remove('active');
+                });
+                
+                // Show selected section
+                const sectionId = item.dataset.section;
+                const section = document.getElementById(sectionId);
+                if (section) {
+                    section.classList.add('active');
+                }
+                
+                // Show/hide sculpture image in right column
+                const sculptureImage = document.getElementById('sculpture-image');
+                if (sectionId === 'sculpture') {
+                    if (sculptureImage) {
+                        sculptureImage.style.display = 'block';
+                    }
+                } else {
+                    if (sculptureImage) {
+                        sculptureImage.style.display = 'none';
+                    }
+                }
+            });
+        });
+    </script>
+</body>
+</html>
